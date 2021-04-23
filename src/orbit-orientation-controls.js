@@ -83,6 +83,13 @@ class OrbitOrientationControls {
         this.lastAngle_ = currentAngle;
       }
 
+      // gyro snaps back when rotating to around 90 deg.
+      if (this.lastAngle_.z * currentAngle.z < 0 && Math.abs(this.lastAngle_.z) > 1) {
+        this.lastAngle_.z = this.lastAngle_.z * -1;
+      }
+
+      // gyro moving faster than actual movement
+      this.speed = 0.00706;
       this.orbit.rotateLeft((this.lastAngle_.z - currentAngle.z) * (1 + this.speed));
       this.orbit.rotateUp((this.lastAngle_.y - currentAngle.y) * (1 + this.speed));
       this.lastAngle_ = currentAngle;
