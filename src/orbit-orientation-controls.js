@@ -50,6 +50,7 @@ class OrbitOrientationControls {
     this.orbit.enableZoom = false;
     this.orbit.enablePan = false;
     this.orbit.rotateSpeed = -this.speed;
+    this.keys = { W: 87, S: 83, A: 65, D: 68 };
 
     // if orientation is supported
     if (options.orientation) {
@@ -62,6 +63,33 @@ class OrbitOrientationControls {
       this.orbit.minAzimuthAngle = -Math.PI / 4;
       this.orbit.maxAzimuthAngle = Math.PI / 4;
     }
+
+    const handleKeyDown = e => {
+      switch (e.keyCode) {
+      case this.keys.W:
+        this.orbit.rotateUp(this.orbit.rotateSpeed / 20);
+        this.orbit.update();
+        break;
+
+      case this.keys.S:
+        this.orbit.rotateUp(-this.orbit.rotateSpeed / 20);
+        this.orbit.update();
+        break;
+
+      case this.keys.A:
+        this.orbit.rotateLeft(this.orbit.rotateSpeed / 20);
+        this.orbit.update();
+        break;
+
+      case this.keys.D:
+        this.orbit.rotateLeft(-this.orbit.rotateSpeed / 20);
+        this.orbit.update();
+        break;
+      }
+    };
+
+    /* eslint-disable-next-line */
+    window.addEventListener('keydown', handleKeyDown, false);
   }
 
   update() {
