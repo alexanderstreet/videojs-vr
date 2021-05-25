@@ -565,12 +565,17 @@ void main() {
   }
 
   handleResize_() {
-    const width = this.player_.currentWidth();
-    const height = this.player_.currentHeight();
+    // Sometimes this.player_.curentWidth() trigger an error
+    // Where Video.JS hasn't populated the player instance
+    // And complains "cannot read property of null".
+    setTimeout(() => {
+      const width = this.player_.currentWidth();
+      const height = this.player_.currentHeight();
 
-    this.effect.setSize(width, height, false);
-    this.camera.aspect = width / height;
-    this.camera.updateProjectionMatrix();
+      this.effect.setSize(width, height, false);
+      this.camera.aspect = width / height;
+      this.camera.updateProjectionMatrix();
+    }, 10);
   }
 
   setProjection(projection) {
