@@ -575,7 +575,7 @@ void main() {
       this.effect.setSize(width, height, false);
       this.camera.aspect = width / height;
       this.camera.updateProjectionMatrix();
-    }, 10);
+    }, 100);
   }
 
   setProjection(projection) {
